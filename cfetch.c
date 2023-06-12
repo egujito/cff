@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <unistd.h>
 #include "cfetch.h"
 
 
@@ -18,10 +19,18 @@ char* gethost() {
 
 }
 
+char* username() {
+    
+    char* content = malloc (sizeof(char) * USER_NAME_SIZE_LIM); 
+    content = getlogin();
+    return content;
+
+}
 
 int main(int argc, char* argv[]) {
     
-    printf("host: %s", gethost());
+    printf("%s host: %s", HOST_ICON, gethost());
+    printf("%s user: %s", USER_ICON, username());
 
     return 0;
 
