@@ -1,46 +1,62 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <string.h>
+#include <sys/sysinfo.h>
+#include <linux/kernel.h>
 #include "cfetch.h"
 
 
-char* gethost() {
+char* host() {
 
-    FILE *hostfile = fopen(HOST_NAME_PATH, "r");
-    
-    if (hostfile == NULL) return "Error while getting hostname";
-
-    char *content = malloc (sizeof(char) * HOST_NAME_SIZE_LIM);
-
-    fgets(content, 253, hostfile);
-    fclose(hostfile);
-
-    return content;
+    char* host = malloc (sizeof(char) * HOST_NAME_SIZE_LIM);
+    int r = gethostname(host, HOST_NAME_SIZE_LIM); 
+    if (r != 0) {
+        return "Error while retrieving hostname";
+    }
+    return host;
 
 }
 
 char* username() {
     
-    char* content = malloc (sizeof(char) * USER_NAME_SIZE_LIM); 
-    content = getlogin();
-    return content;
+    char* username = malloc (sizeof(char) * USER_NAME_SIZE_LIM); 
+    username = getlogin();
+    return username;
 
 }
 
 char* cwd() {
 
-    char* content = malloc (sizeof(char) * PATH_NAME_SIZE_LIM);
-    getcwd(content, PATH_NAME_SIZE_LIM);
-    return content;
+    char* cwd = malloc (sizeof(char) * PATH_SIZE_LIM);
+    getcwd(cwd, PATH_SIZE_LIM);
+    if (cwd == NULL) {
+        return "Error while retrieving hostname";
+    }
 
+    return cwd;
+
+}
+
+long uptime() {
+   
+    struct sysinfo* snapshot = malloc(sizeof(struct sysinfo));
+    int r = sysinfo(snapshot);
+
+    if (r != 0) {
+        return 1; // TODO: better error handling
+    } 
+
+    return snapshot->uptime / 60;
+        
 }
 
 int main(int argc, char* argv[]) {
     
-    printf("%s host: %s", HOST_ICON, gethost());
+    printf("%s host: %s \n", HOST_ICON, host());
     printf("%s user: %s \n", USER_ICON, username());
-    printf("%s cwd:  %s", PATH_ICON, cwd());
-
+    printf("%s cwd:  %s \n", PATH_ICON, cwd());
+    printf("%s uptime: %ld minutes \n", UPTIME_ICON, uptime());
     return 0;
 
 }
