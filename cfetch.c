@@ -6,9 +6,9 @@
 
 char* gethost() {
 
-    FILE *hostfile = fopen("/etc/hostname", "r");
+    FILE *hostfile = fopen(HOST_NAME_PATH, "r");
     
-    if (hostfile == NULL) return "err";
+    if (hostfile == NULL) return "Error while getting hostname";
 
     char *content = malloc (sizeof(char) * HOST_NAME_SIZE_LIM);
 
@@ -27,10 +27,19 @@ char* username() {
 
 }
 
+char* cwd() {
+
+    char* content = malloc (sizeof(char) * PATH_NAME_SIZE_LIM);
+    getcwd(content, PATH_NAME_SIZE_LIM);
+    return content;
+
+}
+
 int main(int argc, char* argv[]) {
     
     printf("%s host: %s", HOST_ICON, gethost());
-    printf("%s user: %s", USER_ICON, username());
+    printf("%s user: %s \n", USER_ICON, username());
+    printf("%s cwd:  %s", PATH_ICON, cwd());
 
     return 0;
 
