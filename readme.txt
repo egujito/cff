@@ -1,10 +1,10 @@
 Building:
 
-./build.sh
+make
 
 Running:
 
-./t
+./cff
 
 Current modules:
 
