@@ -8,7 +8,7 @@ Running:
 
 Current modules:
 
-hostname, username, current working directory
+hostname, username, current working directory, uptime
 
 TODO:
 
