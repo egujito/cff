@@ -1,13 +1,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
-#include <math.h>
 #include <sys/sysinfo.h>
 #include <linux/kernel.h>
 #include "cfetch.h"
 
 
-char* host() {
+
+char* hostname() {
 
     char* host = malloc (sizeof(char) * HOST_NAME_SIZE_LIM);
     int r = gethostname(host, HOST_NAME_SIZE_LIM); 
@@ -19,7 +19,7 @@ char* host() {
 }
 
 char* username() {
-    
+
     char* username = malloc (sizeof(char) * USER_NAME_SIZE_LIM); 
     username = getlogin();
     return username;
@@ -39,44 +39,45 @@ char* cwd() {
 }
 
 long uptime() {
-   
+
     struct sysinfo* snapshot = malloc(sizeof(struct sysinfo));
     int r = sysinfo(snapshot);
 
     if (r != 0) {
         return 1; // TODO: better error handling
     } 
-    
-    return snapshot->uptime; // TODO: implement correct format
-        
+
+    return snapshot->uptime; //seconds       
 }
 
 char* timeformat(long full) {
-    
-    char* r = malloc(sizeof(char) * 20);
+
+    char* r = malloc(sizeof(char) * STD_STR_SIZE);
+    float h;
+    int m;
 
     if (full / 60 > 60) {
 
-        float h = (float)full / (float)3600;  // gets the hours
-        float p = h - (int)h;                 // calculate percentage to multiply by 60 to get minutes
-        int m = p * 60;                       // calculates minutes
-        
-        sprintf(r, "%dh %dm", (int)h, m);
+        h = (float)full / (float)3600;  // gets the hours
+        float p = h - (int)h;           // calculate percentage to multiply by 60 to get minutes
+        m = p * 60;                     // calculates minutes (0 <= m < 60)
 
     } else {
 
-        sprintf(r, "%d mins", full / 60); 
+        h++;
+        m = 0;
 
     }
+    sprintf(r, "%dh %dm", (int)h, m);
     return r; 
 }
 
 int main(int argc, char* argv[]) {
-    
-    printf("%s host: %s \n", HOST_ICON, host());
-    printf("%s user: %s \n", USER_ICON, username());
-    printf("%s cwd:  %s \n", PATH_ICON, cwd());
-    printf("%s uptime: %s \n", UPTIME_ICON, timeformat(uptime()));
+
+	printf("%s host:    %s \n", HOST_ICON, hostname());
+	printf("%s user:    %s \n", USER_ICON, username());
+	printf("%s cwd:     %s \n", CWD_ICON, cwd());
+	printf("%s uptime:  %s \n", UPTIME_ICON, timeformat(uptime()));
 
     return 0;
 
