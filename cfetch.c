@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <math.h>
 #include <sys/sysinfo.h>
 #include <linux/kernel.h>
 #include "cfetch.h"
@@ -45,9 +46,29 @@ long uptime() {
     if (r != 0) {
         return 1; // TODO: better error handling
     } 
-
-    return snapshot->uptime / 60; // TODO: implement correct format
+    
+    return snapshot->uptime; // TODO: implement correct format
         
+}
+
+char* timeformat(long full) {
+    
+    char* r = malloc(sizeof(char) * 20);
+
+    if (full / 60 > 60) {
+
+        float h = (float)full / (float)3600;  // gets the hours
+        float p = h - (int)h;                 // calculate percentage to multiply by 60 to get minutes
+        int m = p * 60;                       // calculates minutes
+        
+        sprintf(r, "%dh %dm", (int)h, m);
+
+    } else {
+
+        sprintf(r, "%d mins", full / 60); 
+
+    }
+    return r; 
 }
 
 int main(int argc, char* argv[]) {
@@ -55,7 +76,7 @@ int main(int argc, char* argv[]) {
     printf("%s host: %s \n", HOST_ICON, host());
     printf("%s user: %s \n", USER_ICON, username());
     printf("%s cwd:  %s \n", PATH_ICON, cwd());
-    printf("%s uptime: %ld mins \n", UPTIME_ICON, uptime());
+    printf("%s uptime: %s \n", UPTIME_ICON, timeformat(uptime()));
 
     return 0;
 
