@@ -15,4 +15,13 @@
 #define UPTIME_ICON " " 
 #define CWD_ICON " "
 
+// Macro representation of the functions
+
+#define USER 0
+#define HOST 1
+#define CWD 2
+#define UPTIME 3
+
+static const int fetch_order[] = { USER, HOST, CWD, UPTIME };
+
 #endif
