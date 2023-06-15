@@ -10,11 +10,11 @@
 
 // Make sure you use a nerd font in order for these to work
 
-#define HOST_ICON " "
-#define USER_ICON " "
-#define UPTIME_ICON " " 
-#define CWD_ICON " "
-#define RAM_ICON "󰍛 "
+#define HOST_ICON ""
+#define USER_ICON ""
+#define UPTIME_ICON "" 
+#define CWD_ICON ""
+#define RAM_ICON ""
 // Macro representation of the functions
 
 #define USER 0

@@ -125,10 +125,12 @@ void fetch() {
 			case UPTIME:
 				printf("%s uptime:  %s \n", UPTIME_ICON, timeformat(uptime()));
 				break;
-			case 4:
+			case RAM:
 				printf("%s ram:     %s \n", RAM_ICON, ram());
+				break;
 		}
 	}
+
 }
 
 int main(int argc, char* argv[]) {
