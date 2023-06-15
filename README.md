@@ -33,6 +33,7 @@ HOST  	| Hostname of the OS
 USER  	| Current user name
 UPTIME  | Seconds since boot
 CWD     | Current working directory
+KERNEL  | Kernel release
 
 ## TODO:
 

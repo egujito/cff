@@ -15,6 +15,8 @@
 #define UPTIME_ICON "" 
 #define CWD_ICON ""
 #define RAM_ICON ""
+#define KERNEL_ICON ""
+
 // Macro representation of the functions
 
 #define USER 0
@@ -22,7 +24,8 @@
 #define CWD 2
 #define UPTIME 3
 #define RAM 4
+#define KERNEL 5
 
-static const int fetch_order[] = { CWD, USER, HOST, UPTIME, RAM };
+static const int fetch_order[] = { CWD, USER, HOST, UPTIME, RAM , KERNEL };
 
 #endif

@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <sys/sysinfo.h>
+#include <sys/utsname.h>
 #include <linux/kernel.h>
 #include "cfetch.h"
 
@@ -56,6 +57,18 @@ long uptime() {
 
 }
 
+char* kernel() {
+
+	struct utsname* snapshot = malloc(sizeof(struct utsname));
+	int c = uname(snapshot);
+
+	if (c != 0) {
+		return "Error while retrieving kernel release \n"; // TODO: better error handling
+	}
+	
+	return snapshot->release;
+}
+
 // RAM NOT IMPLEMENTED 
 
 char* ram() {
@@ -68,7 +81,7 @@ char* ram() {
 	} 
 	
 	char* r = malloc(sizeof(char) * 50); 
-	sprintf(r, "%.2fG/%.2fG", (float) ((snapshot->totalram - snapshot->sharedram - snapshot->bufferram - snapshot->freeram)* 9.31322575e-10), (float) (snapshot->totalram * 9.31322575E-10));
+	sprintf(r, "%.2fG/%.2fG", (float) ((snapshot->totalram - snapshot->freeram - snapshot->bufferram) * 9.31322575E-10), (float) (snapshot->totalram * 9.31322575E-10));
 	return r;
 
 }
@@ -113,23 +126,25 @@ void fetch() {
 	for(int i = 0; i < lines; i++) {
 		switch(fetch_order[i]) {
 			case USER:
-				printf("%s user:    %s \n", USER_ICON, username());
+				printf("%s user:     %s \n", USER_ICON, username());
 				break;
 			case HOST:
-				printf("%s host:    %s \n", HOST_ICON, hostname());
+				printf("%s host:     %s \n", HOST_ICON, hostname());
 				break;
 			case CWD:
-				printf("%s cwd:     %s \n", CWD_ICON, cwd());
+				printf("%s cwd:      %s \n", CWD_ICON, cwd());
 				break;
 			case UPTIME:
-				printf("%s uptime:  %s \n", UPTIME_ICON, timeformat(uptime()));
+				printf("%s uptime:   %s \n", UPTIME_ICON, timeformat(uptime()));
 				break;
 			case RAM:
-				printf("%s ram:     %s \n", RAM_ICON, ram());
+				printf("%s ram:      %s \n", RAM_ICON, ram());
+				break;
+			case KERNEL:
+				printf("%s kernel:   %s \n", KERNEL_ICON, kernel());
 				break;
 		}
 	}
-
 }
 
 int main(int argc, char* argv[]) {
