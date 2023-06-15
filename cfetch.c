@@ -10,9 +10,9 @@
 char* hostname() {
 
 	char* host = malloc (sizeof(char) * HOST_NAME_SIZE_LIM);
-	int r = gethostname(host, HOST_NAME_SIZE_LIM); 
+	int c = gethostname(host, HOST_NAME_SIZE_LIM); 
 
-	if (r != 0) {
+	if (c != 0) {
 		return "Error while retrieving hostname \n";
 	}
 
@@ -24,6 +24,8 @@ char* username() {
 
 	char* username = malloc (sizeof(char) * USER_NAME_SIZE_LIM); 
 	username = getlogin();
+
+	if (username == NULL) return "Error while retrieving username \n";
 
 	return username;
 
@@ -44,13 +46,31 @@ char* cwd() {
 long uptime() {
 
 	struct sysinfo* snapshot = malloc(sizeof(struct sysinfo));
-	int r = sysinfo(snapshot);
+	int c = sysinfo(snapshot);
 
-	if (r != 0) {
+	if (c != 0) {
 		return 1; // TODO: better error handling
 	} 
 
 	return snapshot->uptime; //seconds
+
+}
+
+// RAM NOT IMPLEMENTED 
+
+char* ram() {
+
+	struct sysinfo* snapshot = malloc(sizeof(struct sysinfo));
+	int c = sysinfo(snapshot);
+
+	if (c != 0) {
+		return "Error while using RAM module \n";	
+	} 
+	
+	char* r = malloc(sizeof(char) * 50); 
+	sprintf(r, "%lf/%lf", ((double)snapshot->totalram * (double)9.31*0.0000000001) - ((double)snapshot->freeram * (double)9.31*0.0000000001),
+			snapshot->totalram * (double)9.31*0.0000000001);
+	return r;
 
 }
 
@@ -62,15 +82,23 @@ char* timeformat(long full) {
 
 	if (full / 60 > 60) {
 
-		h = (float)full / (float)3600;  // gets the hours
-		float p = h - (int)h;           // calculate percentage to multiply by 60 to get minutes
-		m = p * 60;                     // calculates minutes (0 <= m < 60)
-
+		h = (float)full / (float)3600;  
+		float p = h - (int)h;           
+		m = p * 60;						
+										
 	} else {
+		
+		if (full / 60 == 60) {
 
-		h++;
-		m = 0;
+			m = 0;
+			h = 1;
 
+		} else {
+
+			m = full / 60;
+			h = 0;
+
+		}
 	}
 
 	sprintf(r, "%dh %dm", (int)h, m);
@@ -97,9 +125,10 @@ void fetch() {
 			case 3:
 				printf("%s uptime:  %s \n", UPTIME_ICON, timeformat(uptime()));
 				break;
+			case 4:
+				printf("%s ram:     %s \n", RAM_ICON, ram());
 		}
 	}
-
 }
 
 int main(int argc, char* argv[]) {
