@@ -68,8 +68,7 @@ char* ram() {
 	} 
 	
 	char* r = malloc(sizeof(char) * 50); 
-	sprintf(r, "%lf/%lf", ((double)snapshot->totalram * (double)9.31*0.0000000001) - ((double)snapshot->freeram * (double)9.31*0.0000000001),
-			snapshot->totalram * (double)9.31*0.0000000001);
+	sprintf(r, "%.2fG/%.2fG", (float) ((snapshot->totalram - snapshot->sharedram - snapshot->bufferram - snapshot->freeram)* 9.31322575e-10), (float) (snapshot->totalram * 9.31322575E-10));
 	return r;
 
 }
