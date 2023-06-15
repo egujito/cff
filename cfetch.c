@@ -113,16 +113,16 @@ void fetch() {
 
 	for(int i = 0; i < lines; i++) {
 		switch(fetch_order[i]) {
-			case 0:
+			case USER:
 				printf("%s user:    %s \n", USER_ICON, username());
 				break;
-			case 1:
+			case HOST:
 				printf("%s host:    %s \n", HOST_ICON, hostname());
 				break;
-			case 2:
+			case CWD:
 				printf("%s cwd:     %s \n", CWD_ICON, cwd());
 				break;
-			case 3:
+			case UPTIME:
 				printf("%s uptime:  %s \n", UPTIME_ICON, timeformat(uptime()));
 				break;
 			case 4:

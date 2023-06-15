@@ -2,7 +2,7 @@ FLAGS := -std=c11 -Wall
 
 all: cfetch.o build
 
-cfetch.o: cfetch.c
+cfetch.o: cfetch.c cfetch.h
 	cc -c cfetch.c -o cfetch.o
 
 build: cfetch.o
