@@ -1,8 +1,8 @@
 # CFF - C Fast Fetch
-A fetch that aims to run as fast as possible. Developed for fun.
+A fetch that aims to run as fast as possible. Developed for fun (and for GNU/Linux systems).
 
 ![](https://raw.githubusercontent.com/egujito/cff/master/example-og.png)
-
+![](https://raw.githubusercontent.com/egujito/cff/master/speed.png)
 ### Building:
 
 ```
@@ -38,3 +38,4 @@ CWD     | Current working directory
 		- Detect window manager
 		- OS release name
 - [ ]  Add Fetch ASCII ART
+
