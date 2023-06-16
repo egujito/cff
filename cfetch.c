@@ -8,8 +8,6 @@
 #include <linux/kernel.h>
 #include "cfetch.h"
 
-
-
 char* hostname() {
 
 	char* host = malloc (sizeof(char) * HOST_NAME_SIZE_LIM);
@@ -74,7 +72,7 @@ char* kernel() {
 	int c = uname(snapshot);
 
 	if (c != 0) {
-		return "Error while retrieving kernel release \n"; // TODO: better error handling
+		return "Error while retrieving <struct utsname*> \n"; // TODO: better error handling
 	}
 	
 	return snapshot->release;
@@ -93,45 +91,20 @@ void strip(char* s) {
     s[j] = '\0';
 }
 
-// NOT IMPL YET
+// !! RAM ONLY RETURNS TOTAL AVAILABLE RAM NOT THE RAM BEING USED
 char* ram() {
-
-	size_t len = STD_STR_SIZE * 3;
-
-	FILE *meminfo = fopen("/proc/meminfo", "r");
-	if (meminfo == NULL) return "Failed to open /proc/meminfo";
-
-	char* memtotalline = malloc(sizeof(char) * MEM_INFO_LINE_SIZE);
-	char memavailableline[MEM_INFO_LINE_SIZE];
-	getline(&memtotalline, &len, meminfo);
-	//getline(&memavailableline, &len, meminfo);
 	
-	int n = 2;
-	int i = 1;
+	struct sysinfo* snapshot = malloc(sizeof(struct sysinfo));
+	int c = sysinfo(snapshot);
 
-    while (fgets(memavailableline, sizeof(memavailableline), meminfo) != NULL) {
-        if (i == n) {
-            // printf("%s", memavailableline);
-            break;
-        }
-        i++;
-    }
-
-
-	fclose(meminfo);
-
-	char* total = malloc(sizeof(char) * STD_STR_SIZE);
-
-	strncpy(total, memtotalline + 9, 24 - 9 + 1);
-	total[24-9-1] = '\0';
-
-	strip(total);
-	
+	if (c != 0) {
+		return "Error while getting <struct sysinfo*>";
+	} 
 
 	char* r = malloc(sizeof(char) * STD_STR_SIZE);
-	sprintf(r, "%d GB", (atoi(total) / 100000));
-
+	sprintf(r, "%.2f GB", (float) (snapshot->totalram * (double)9.31*0.0000000001));
 	return r;
+
 }
 
 void fetch() {

@@ -19,8 +19,9 @@
 #define KERNEL 5
 
 /*  USER, HOST, CWD, UPTIME, RAM, KERNEL */
-static const char* icons[] = { "", "", "", "", "", ""};
 
-static const int fetch_order[] = { CWD, USER, HOST, UPTIME , KERNEL /*, RAM (not 100% yet)*/ };
+static const char* icons[] = { "", "", "", "", "", "" };
+
+static const int fetch_order[] = { CWD, UPTIME ,USER, HOST, KERNEL, RAM };
 
 #endif
