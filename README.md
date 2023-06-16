@@ -5,9 +5,9 @@ A fetch that aims to run as fast as possible. Developed for fun (and for GNU/Lin
 
 ![](https://raw.githubusercontent.com/egujito/cff/master/example-og.png)
 
-
-_Blazingly fast  🏎️💨_
 ![](https://raw.githubusercontent.com/egujito/cff/master/speed.png)
+_Blazingly fast  🏎️💨_
+
 ### Building:
 
 ```
