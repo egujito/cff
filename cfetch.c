@@ -1,10 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
-#include <string.h>
 #include <sys/sysinfo.h>
 #include <sys/utsname.h>
-#include <sys/resource.h>
 #include <linux/kernel.h>
 #include "cfetch.h"
 
