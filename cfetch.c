@@ -46,16 +46,25 @@ char* cwd() {
 
 }
 
-long uptime() {
+char* uptime() {
 
 	struct sysinfo* snapshot = malloc(sizeof(struct sysinfo));
 	int c = sysinfo(snapshot);
 
 	if (c != 0) {
-		return 1; // TODO: better error handling
-	} 
+		return ""; // TODO: better error handling
+	}
 
-	return snapshot->uptime; //seconds
+	int seconds = snapshot->uptime;
+	int hours = seconds / 3600;
+	seconds = seconds % 3600;
+	int minutes = seconds / 60;
+
+	char* result;
+
+	sprintf(result, "%02d:%02d", hours, minutes);
+
+	return result;
 
 }
 
@@ -125,39 +134,6 @@ char* ram() {
 	return r;
 }
 
-char* timeformat(long full) {
-
-	char* r = malloc(sizeof(char) * STD_STR_SIZE);
-	float h;
-	int m;
-
-	if (full / 60 > 60) {
-
-		h = (float)full / (float)3600;  
-		float p = h - (int)h;           
-		m = p * 60;						
-										
-	} else {
-		
-		if (full / 60 == 60) {
-
-			m = 0;
-			h = 1;
-
-		} else {
-
-			m = full / 60;
-			h = 0;
-
-		}
-	}
-
-	sprintf(r, "%dh %dm", (int)h, m);
-
-	return r; 
-
-}
-
 void fetch() {
 
 	const int lines = sizeof(fetch_order) / sizeof(int);
@@ -174,7 +150,7 @@ void fetch() {
 				printf("%s cwd:      %s \n", icons[CWD], cwd());
 				break;
 			case UPTIME:
-				printf("%s uptime:   %s \n", icons[UPTIME], timeformat(uptime()));
+				printf("%s uptime:   %s \n", icons[UPTIME], uptime());
 				break;
 			case RAM:
 				printf("%s ram:      %s \n", icons[RAM], ram());
