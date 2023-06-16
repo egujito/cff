@@ -4,6 +4,8 @@ A fetch that aims to run as fast as possible. Developed for fun (and for GNU/Lin
 (_The following example shows the fetch running with the respective icons set in `cfetch.h`_)
 
 ![](https://raw.githubusercontent.com/egujito/cff/master/example-og.png)
+
+
 _Blazingly fast  🏎️💨_
 ![](https://raw.githubusercontent.com/egujito/cff/master/speed.png)
 ### Building:
@@ -44,3 +46,4 @@ RAM | Total Ram
 		- Detect window manager
 		- OS release name
 - [ ]  Add Fetch ASCII ART
+
