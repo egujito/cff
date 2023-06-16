@@ -18,10 +18,10 @@
 #define RAM 4
 #define KERNEL 5
 
+/*   0  ,  1  ,  2 ,    3  ,  4 ,   5    */
 /*  USER, HOST, CWD, UPTIME, RAM, KERNEL */
-
 static const char* icons[] = { "", "", "", "", "", "" };
 
-static const int fetch_order[] = { CWD, UPTIME ,USER, HOST, KERNEL, RAM };
+static const int fetch_order[] = { USER, HOST, CWD, UPTIME, RAM, KERNEL }; // customize order
 
 #endif

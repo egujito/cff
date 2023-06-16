@@ -50,7 +50,7 @@ char* uptime() {
 	int c = sysinfo(snapshot);
 
 	if (c != 0) {
-		return ""; // TODO: better error handling
+		return "Error while getting <struct sysinfo*>"; // TODO: better error handling
 	}
 
 	int seconds = snapshot->uptime;
@@ -60,7 +60,7 @@ char* uptime() {
 
 	char* result;
 
-	sprintf(result, "%02d:%02d", hours, minutes);
+	sprintf(result, "%02dh:%02dm", hours, minutes);
 
 	return result;
 
@@ -76,19 +76,6 @@ char* kernel() {
 	}
 	
 	return snapshot->release;
-}
-
-void strip(char* s) {
-	int i = 0, j = 0;
-
-    while (s[i]) {
-        if (s[i] != ' ') {
-            s[j] = s[i];
-            j++;
-        }
-        i++;
-    }
-    s[j] = '\0';
 }
 
 // !! RAM ONLY RETURNS TOTAL AVAILABLE RAM NOT THE RAM BEING USED
