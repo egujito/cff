@@ -7,15 +7,7 @@
 #define USER_NAME_SIZE_LIM 16
 #define PATH_SIZE_LIM 4096
 #define STD_STR_SIZE 30
-
-// Make sure you use a nerd font in order for these to work
-
-#define HOST_ICON ""
-#define USER_ICON ""
-#define UPTIME_ICON "" 
-#define CWD_ICON ""
-#define RAM_ICON ""
-#define KERNEL_ICON ""
+#define MEM_INFO_LINE_SIZE 40
 
 // Macro representation of the functions
 
@@ -25,6 +17,9 @@
 #define UPTIME 3
 #define RAM 4
 #define KERNEL 5
+
+/*  USER, HOST, CWD, UPTIME, RAM, KERNEL */
+static const char* icons[] = { "", "", "", "", "", ""};
 
 static const int fetch_order[] = { CWD, USER, HOST, UPTIME, RAM , KERNEL };
 
