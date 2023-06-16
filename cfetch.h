@@ -7,7 +7,7 @@
 #define USER_NAME_SIZE_LIM 16
 #define PATH_SIZE_LIM 4096
 #define STD_STR_SIZE 30
-#define MEM_INFO_LINE_SIZE 40
+#define MEM_INFO_LINE_SIZE 30
 
 // Macro representation of the functions
 
@@ -21,6 +21,6 @@
 /*  USER, HOST, CWD, UPTIME, RAM, KERNEL */
 static const char* icons[] = { "", "", "", "", "", ""};
 
-static const int fetch_order[] = { CWD, USER, HOST, UPTIME, RAM , KERNEL };
+static const int fetch_order[] = { CWD, USER, HOST, UPTIME , KERNEL /*, RAM (not 100% yet)*/ };
 
 #endif

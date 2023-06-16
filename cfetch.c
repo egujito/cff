@@ -87,31 +87,37 @@ void strip(char* s) {
 // NOT IMPL YET
 char* ram() {
 
-	size_t len = 40;
+	size_t len = STD_STR_SIZE * 3;
 
 	FILE *meminfo = fopen("/proc/meminfo", "r");
 	if (meminfo == NULL) return "Failed to open /proc/meminfo";
 
 	char* memtotalline = malloc(sizeof(char) * MEM_INFO_LINE_SIZE);
-	//char* memavailableline = malloc(sizeof(char) * MEM_INFO_LINE_SIZE);
-
+	char memavailableline[MEM_INFO_LINE_SIZE];
 	getline(&memtotalline, &len, meminfo);
 	//getline(&memavailableline, &len, meminfo);
+	
+	int n = 2;
+	int i = 1;
+
+    while (fgets(memavailableline, sizeof(memavailableline), meminfo) != NULL) {
+        if (i == n) {
+            // printf("%s", memavailableline);
+            break;
+        }
+        i++;
+    }
+
 
 	fclose(meminfo);
 
 	char* total = malloc(sizeof(char) * STD_STR_SIZE);
-	//char* available = malloc(sizeof(char) * STD_STR_SIZE);
 
 	strncpy(total, memtotalline + 9, 24 - 9 + 1);
 	total[24-9-1] = '\0';
 
-	//strncpy(available, memavailableline + 12, 24 - 12 + 1);
-	//available[24-12-1] = '\0';
-
-	
 	strip(total);
-	//strip(available);
+	
 
 	char* r = malloc(sizeof(char) * STD_STR_SIZE);
 	sprintf(r, "%d GB", (atoi(total) / 100000));
