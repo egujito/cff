@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
-#include <string.h>
 #include <sys/sysinfo.h>
 #include <sys/utsname.h>
 #include <linux/kernel.h>
@@ -81,12 +80,18 @@ char* wmde() {
 
 	char* r = getenv("DESKTOP_SESSION");
 
-	if (!(strcmp(r, "") == 0)) 
+	if(r != NULL) {
 		return r;
+	}
 
 	r = getenv("XDG_CURRENT_DESKTOP");
-	return r;
-	
+
+	if(r != NULL) {
+		return r;
+	}
+
+	return "";
+
 }
 
 // !! RAM ONLY RETURNS TOTAL AVAILABLE RAM NOT THE RAM BEING USED
