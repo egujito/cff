@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <string.h>
 #include <sys/sysinfo.h>
 #include <sys/utsname.h>
 #include <linux/kernel.h>
@@ -76,6 +77,18 @@ char* kernel() {
 	return snapshot->release;
 }
 
+char* wmde() {
+
+	char* r = getenv("DESKTOP_SESSION");
+
+	if (!(strcmp(r, "") == 0)) 
+		return r;
+
+	r = getenv("XDG_CURRENT_DESKTOP");
+	return r;
+	
+}
+
 // !! RAM ONLY RETURNS TOTAL AVAILABLE RAM NOT THE RAM BEING USED
 char* ram() {
 	
@@ -99,23 +112,27 @@ void fetch() {
 	for(int i = 0; i < lines; i++) {
 		switch(fetch_order[i]) {
 			case USER:
-				printf("%s user:     %s \n", icons[USER], username());
+				printf("%s%suser:     %s \n", icons[USER], LEFT_PAD, username());
 				break;
 			case HOST:
-				printf("%s host:     %s \n", icons[HOST], hostname());
+				printf("%s%shost:     %s \n", icons[HOST], LEFT_PAD, hostname());
 				break;
 			case CWD:
-				printf("%s cwd:      %s \n", icons[CWD], cwd());
+				printf("%s%scwd:      %s \n", icons[CWD], LEFT_PAD, cwd());
 				break;
 			case UPTIME:
-				printf("%s uptime:   %s \n", icons[UPTIME], uptime());
+				printf("%s%suptime:   %s \n", icons[UPTIME], LEFT_PAD, uptime());
 				break;
 			case RAM:
-				printf("%s ram:      %s \n", icons[RAM], ram());
+				printf("%s%sram:      %s \n", icons[RAM], LEFT_PAD, ram());
 				break;
 			case KERNEL:
-				printf("%s kernel:   %s \n", icons[KERNEL], kernel());
+				printf("%s%skernel:   %s \n", icons[KERNEL], LEFT_PAD, kernel());
 				break;
+			case DE:
+				printf("%s%swm/de:    %s \n", icons[DE], LEFT_PAD, wmde());
+				break;
+
 		}
 	}
 }
