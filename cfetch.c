@@ -5,6 +5,7 @@
 #include <sys/utsname.h>
 #include <linux/kernel.h>
 #include "cfetch.h"
+#include "logo.h"
 
 char* hostname() {
 
@@ -110,6 +111,11 @@ char* ram() {
 
 }
 
+void logo() {
+	for(int i = 0; i < 7; i++)
+		printf("%s\n", tux[i]);
+}
+
 void fetch() {
 
 	const int lines = sizeof(fetch_order) / sizeof(int);
@@ -140,6 +146,9 @@ void fetch() {
 
 		}
 	}
+
+	logo();
+
 }
 
 int main(int argc, char* argv[]) {
