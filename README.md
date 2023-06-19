@@ -41,8 +41,9 @@ RAM | Total Ram
 
 ## TODO:
 
+
 - [ ]  Add and update more modules:
-		- Detect window manager
-		- OS release name
-- [ ]  Add Fetch ASCII ART
+		- [x] Detect window manager
+		- [ ] release name
+- [x]  Add Fetch ASCII ART
 
