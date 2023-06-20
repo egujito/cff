@@ -57,6 +57,8 @@ char* uptime() {
 	int hours = seconds / 3600;
 	seconds = seconds % 3600;
 	int minutes = seconds / 60;
+	
+	free(snapshot);
 
 	char* result = malloc(sizeof(char) * STD_STR_SIZE);
 
@@ -92,7 +94,7 @@ char* wmde() {
 		return r;
 	}
 
-	return "";
+	return "Could not get Window manager/Desktop environment";
 
 }
 
@@ -120,25 +122,25 @@ char* print_module(int module) {
 
 	switch(module) {
 		case USER:
-			sprintf(result, "%s%suser:     %s", icons[USER], LEFT_PAD, username());
+			sprintf(result, " %s%suser:     %s", icons[USER], LEFT_PAD, username());
 			break;
 		case HOST:
-			sprintf(result, "%s%shost:     %s", icons[HOST], LEFT_PAD, hostname());
+			sprintf(result, " %s%shost:     %s", icons[HOST], LEFT_PAD, hostname());
 			break;
 		case CWD:
-			sprintf(result, "%s%scwd:      %s", icons[CWD], LEFT_PAD, cwd());
+			sprintf(result, " %s%scwd:      %s", icons[CWD], LEFT_PAD, cwd());
 			break;
 		case UPTIME:
-			sprintf(result, "%s%suptime:   %s", icons[UPTIME], LEFT_PAD, uptime());
+			sprintf(result, " %s%suptime:   %s", icons[UPTIME], LEFT_PAD, uptime());
 			break;
 		case RAM:
-			sprintf(result, "%s%sram:      %s", icons[RAM], LEFT_PAD, ram());
+			sprintf(result, " %s%sram:      %s", icons[RAM], LEFT_PAD, ram());
 			break;
 		case KERNEL:
-			sprintf(result, "%s%skernel:   %s", icons[KERNEL], LEFT_PAD, kernel());
+			sprintf(result, " %s%skernel:   %s", icons[KERNEL], LEFT_PAD, kernel());
 			break;
 		case DE:
-			sprintf(result, "%s%sde:       %s", icons[DE], LEFT_PAD, wmde());
+			sprintf(result, " %s%sde:       %s", icons[DE], LEFT_PAD, wmde());
 			break;
 	}
 
@@ -148,23 +150,26 @@ char* print_module(int module) {
 void fetch() {
 
 	const int module_count = sizeof(fetch_order) / sizeof(int);
+	int looplim = module_count;
+	int printspaces = 0;
 
 	if(module_count > LOGO_LINES) {
-		for(int i = 0; i < LOGO_LINES; i++)
-			printf("%s %s\n", tux[i], print_module(fetch_order[i]));
+		looplim = LOGO_LINES;
+		printspaces = 1;
+	}
 
+	for(int i = 0; i < looplim; i++)
+		printf("%s %s\n", tux[i], print_module(fetch_order[i]));
+
+	if (printspaces) {
 		for(int i = LOGO_LINES; i < module_count; i++) {
 			for(int j = 0; j < LOGO_COLUMNS + 1; j++)
 				printf(" ");
 
 			printf("%s\n", print_module(fetch_order[i]));
 		}
-	}else {
-		for(int i = 0; i < module_count; i++) {
-			printf("%s %s\n", tux[i], print_module(fetch_order[i]));
-		}
-		
-		for(int i = module_count; i < LOGO_LINES; i++)
+	} else {
+		for(int i = module_count; i < LOGO_LINES; i++) 
 			printf("%s\n", tux[i]);
 	}
 

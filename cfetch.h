@@ -10,7 +10,7 @@
 #define MEM_INFO_LINE_SIZE 30
 
 #define LEFT_PAD "" // when setting icons in <static const char* icons[]> make sure you set this to " ";
-					// if you do not use icons the fetch modules text will be docked to the left side of the terminal
+					// if you do not use icons the fetch modules text will be docked to the left side of the icon
 
 // Macro representation of the modules
 
@@ -22,8 +22,8 @@
 #define KERNEL 5
 #define DE 6
 
-/*   0  ,  1  ,  2 ,    3  ,  4 ,   5    */
-/*  USER, HOST, CWD, UPTIME, RAM, KERNEL */
+/*   0  ,  1  ,  2 ,    3  ,  4 ,   5   , 6  */
+/*  USER, HOST, CWD, UPTIME, RAM, KERNEL, DE */
 static const char* icons[] = { "", "", "", "", "", "", "" };
 
 static const int fetch_order[] = { USER, HOST, CWD, UPTIME, RAM, KERNEL, DE }; // customize order
