@@ -6,6 +6,7 @@
 #include <linux/kernel.h>
 #include "cfetch.h"
 #include "logo.h"
+#include "config.h"
 
 char* hostname() {
 

@@ -1,5 +1,5 @@
-#ifndef IMPL
-#define IMPL
+#ifndef CFETCH_H
+#define CFETCH_H
 
 // standard limits of the following properties
 
@@ -9,8 +9,6 @@
 #define STD_STR_SIZE 32
 #define MEM_INFO_LINE_SIZE 30
 
-#define LEFT_PAD "" // when setting icons in <static const char* icons[]> make sure you set this to " ";
-					// if you do not use icons the fetch modules text will be docked to the left side of the icon
 
 // Macro representation of the modules
 
@@ -28,17 +26,6 @@ struct SCRIPT {
 	char* path;
 	char* icon;
 	char* name;
-};
-
-static const char* icons[] = { "", "", "", "", "", "", "" };
-
-/*   0  ,  1  ,  2 ,    3  ,  4 ,   5   , 6  ,    7 + index of script in scripts[]         */
-/*  USER, HOST, CWD, UPTIME, RAM, KERNEL, DE ,               EXTERNAL                         */
-
-static const int fetch_order[] = { USER, HOST, CWD, UPTIME, RAM, KERNEL, DE, EXTERNAL+0 }; // customize order
-																			   
-static struct SCRIPT scripts[] = {
-	{ "~/dev/cfetch/ram.sh", "", "ram" }
 };
 
 #endif

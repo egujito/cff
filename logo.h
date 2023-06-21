@@ -1,3 +1,6 @@
+#ifndef LOGO_H
+#define LOGO_H
+
 #define LOGO_LINES 7
 #define LOGO_COLUMNS 11
 
@@ -10,3 +13,5 @@ static const char* tux[] = {
 	"/'\\_   _/`\\",
 	"\\___)=(___/"
 };
+
+#endif

@@ -2,7 +2,7 @@ FLAGS := -std=c11 -Wall
 
 all: cfetch.o build
 
-cfetch.o: cfetch.c cfetch.h logo.h
+cfetch.o: cfetch.c cfetch.h logo.h config.h
 	cc -c cfetch.c -o cfetch.o
 
 build: cfetch.o
@@ -13,3 +13,6 @@ clean: cfetch.o
 
 install:
 	cp cff /bin
+
+uninstall:
+	rm /bin/cff
