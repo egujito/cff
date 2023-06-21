@@ -13,7 +13,7 @@ char* hostname() {
 	int c = gethostname(host, HOST_NAME_SIZE_LIM); 
 
 	if (c != 0) {
-		return "Error while retrieving hostname \n";
+		return "Error while retrieving hostname";
 	}
 
 	return host;
@@ -25,7 +25,7 @@ char* username() {
 	char* username = malloc (sizeof(char) * USER_NAME_SIZE_LIM); 
 	username = getlogin();
 
-	if (username == NULL) return "Error while retrieving username \n";
+	if (username == NULL) return "Error while retrieving username";
 
 	return username;
 
@@ -37,7 +37,7 @@ char* cwd() {
 	getcwd(cwd, PATH_SIZE_LIM);
 
 	if (cwd == NULL) {
-		return "Error while retrieving current working directory \n";
+		return "Error while retrieving current working directory";
 	}
 
 	return cwd;
@@ -74,7 +74,7 @@ char* kernel() {
 	int c = uname(snapshot);
 
 	if (c != 0) {
-		return "Error while retrieving <struct utsname*> \n"; // TODO: better error handling
+		return "Error while retrieving <struct utsname*>"; // TODO: better error handling
 	}
 
 	return snapshot->release;
@@ -117,7 +117,27 @@ char* ram() {
 
 }
 
-char* print_module(int module) {
+struct SCRIPT external(int total) {
+	int i = total - EXTERNAL;
+	struct SCRIPT r;
+	r.path=scripts[i].path;
+	r.icon=scripts[i].icon;
+	r.name=scripts[i].name;
+	return r;
+}
+
+char* cmd(const char* path) {
+
+	char* r = malloc(sizeof(char) * STD_STR_SIZE);
+	FILE* f = popen(path, "r");
+	fgets(r, sizeof(r), f);
+	fclose(f);
+	return r;
+
+}
+
+char* print_module(const int module) {
+
 	char* result = malloc(sizeof(char) * STD_STR_SIZE);
 
 	switch(module) {
@@ -141,6 +161,11 @@ char* print_module(int module) {
 			break;
 		case DE:
 			sprintf(result, " %s%sde:       %s", icons[DE], LEFT_PAD, wmde());
+			break;
+		default:
+			struct SCRIPT script = external(module);
+			char* buf = cmd(script.path);	
+			sprintf(result,  " %s%s%s:      %s", script.icon, LEFT_PAD, script.name, buf);
 			break;
 	}
 

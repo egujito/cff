@@ -6,7 +6,7 @@
 #define HOST_NAME_SIZE_LIM 253
 #define USER_NAME_SIZE_LIM 16
 #define PATH_SIZE_LIM 4096
-#define STD_STR_SIZE 30
+#define STD_STR_SIZE 32
 #define MEM_INFO_LINE_SIZE 30
 
 #define LEFT_PAD "" // when setting icons in <static const char* icons[]> make sure you set this to " ";
@@ -21,11 +21,24 @@
 #define RAM 4
 #define KERNEL 5
 #define DE 6
+#define EXTERNAL 7
 
-/*   0  ,  1  ,  2 ,    3  ,  4 ,   5   , 6  */
-/*  USER, HOST, CWD, UPTIME, RAM, KERNEL, DE */
+
+struct SCRIPT {
+	char* path;
+	char* icon;
+	char* name;
+};
+
 static const char* icons[] = { "", "", "", "", "", "", "" };
 
-static const int fetch_order[] = { USER, HOST, CWD, UPTIME, RAM, KERNEL, DE }; // customize order
+/*   0  ,  1  ,  2 ,    3  ,  4 ,   5   , 6  ,    7 + index of script in scripts[]         */
+/*  USER, HOST, CWD, UPTIME, RAM, KERNEL, DE ,               EXTERNAL                         */
+
+static const int fetch_order[] = { USER, HOST, CWD, UPTIME, RAM, KERNEL, DE, EXTERNAL+0 }; // customize order
+																			   
+static struct SCRIPT scripts[] = {
+	{ "~/dev/cfetch/ram.sh", "", "ram" }
+};
 
 #endif
