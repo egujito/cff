@@ -25,7 +25,7 @@ $ make clean
 $ ./cff
 ```
 
-# `cfetch.h`
+# `config.h`
 
 ### Variables and Macros:
 
