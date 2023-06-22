@@ -143,25 +143,25 @@ char* print_module(const int module) {
 
 	switch(module) {
 		case USER:
-			sprintf(result, " %s%s" FETCH_COLOR "user:" RESET "     %s", icons[USER], LEFT_PAD, username());
+			sprintf(result, " %s%s" FETCH_COLOR "user:"   RESET "     %s", icons[USER], LEFT_PAD, username());
 			break;
 		case HOST:
-			sprintf(result, " %s%s" FETCH_COLOR "host:" RESET "     %s", icons[HOST], LEFT_PAD, hostname());
+			sprintf(result, " %s%s" FETCH_COLOR "host:"   RESET "     %s", icons[HOST], LEFT_PAD, hostname());
 			break;
 		case CWD:
-			sprintf(result, " %s%s" FETCH_COLOR "cwd:" RESET "      %s", icons[CWD], LEFT_PAD, cwd());
+			sprintf(result, " %s%s" FETCH_COLOR "cwd:"    RESET "      %s", icons[CWD], LEFT_PAD, cwd());
 			break;
 		case UPTIME:
 			sprintf(result, " %s%s" FETCH_COLOR "uptime:" RESET "   %s", icons[UPTIME], LEFT_PAD, uptime());
 			break;
 		case RAM:
-			sprintf(result, " %s%s" FETCH_COLOR "ram:" RESET "      %s", icons[RAM], LEFT_PAD, ram());
+			sprintf(result, " %s%s" FETCH_COLOR "ram:"    RESET "      %s", icons[RAM], LEFT_PAD, ram());
 			break;
 		case KERNEL:
 			sprintf(result, " %s%s" FETCH_COLOR "kernel:" RESET "   %s", icons[KERNEL], LEFT_PAD, kernel());
 			break;
 		case DE:
-			sprintf(result, " %s%s" FETCH_COLOR "de:" RESET "       %s", icons[DE], LEFT_PAD, wmde());
+			sprintf(result, " %s%s" FETCH_COLOR "de:"     RESET "       %s", icons[DE], LEFT_PAD, wmde());
 			break;
 		default:
 			struct SCRIPT script = external(module);
@@ -171,6 +171,21 @@ char* print_module(const int module) {
 	}
 
 	return result;
+}
+
+void pallete() {
+	
+	for (int i = 0; i < LOGO_COLUMNS + 2; ++i) {
+		printf(" ");
+	}
+
+	printf(RED    "●  "     RESET);
+	printf(YELLOW "●  "     RESET);
+	printf(GREEN  "●  "     RESET);
+	printf(CYAN   "●  "     RESET);
+	printf(BLUE   "●  "     RESET);
+	printf(MAGENTA"●\n"     RESET);
+
 }
 
 void fetch() {
@@ -198,6 +213,8 @@ void fetch() {
 		for(int i = module_count; i < LOGO_LINES; i++) 
 			printf("%s\n", tux[i]);
 	}
+
+	pallete();
 
 }
 
