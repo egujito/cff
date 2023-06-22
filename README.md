@@ -3,7 +3,7 @@ A fetch that aims to run as fast as possible. Developed for fun (and for GNU/Lin
 
 (_The following example shows the fetch running with the default configuration_)
 
-![](https://raw.githubusercontent.com/egujito/cff/master/example-og.png)
+![](https://raw.githubusercontent.com/egujito/cff/master/cff.png)
 
 _Blazingly fast  🏎️💨_
 
