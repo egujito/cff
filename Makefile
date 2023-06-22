@@ -1,4 +1,4 @@
-FLAGS := -std=c11 -Wall
+FLAGS := -std=c11 -Wall -Wextra
 
 all: cfetch.o build
 

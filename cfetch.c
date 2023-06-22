@@ -143,25 +143,25 @@ char* print_module(const int module) {
 
 	switch(module) {
 		case USER:
-			sprintf(result, " %s%suser:     %s", icons[USER], LEFT_PAD, username());
+			sprintf(result, " %s%s" FETCH_COLOR "user:" RESET "     %s", icons[USER], LEFT_PAD, username());
 			break;
 		case HOST:
-			sprintf(result, " %s%shost:     %s", icons[HOST], LEFT_PAD, hostname());
+			sprintf(result, " %s%s" FETCH_COLOR "host:" RESET "     %s", icons[HOST], LEFT_PAD, hostname());
 			break;
 		case CWD:
-			sprintf(result, " %s%scwd:      %s", icons[CWD], LEFT_PAD, cwd());
+			sprintf(result, " %s%s" FETCH_COLOR "cwd:" RESET "      %s", icons[CWD], LEFT_PAD, cwd());
 			break;
 		case UPTIME:
-			sprintf(result, " %s%suptime:   %s", icons[UPTIME], LEFT_PAD, uptime());
+			sprintf(result, " %s%s" FETCH_COLOR "uptime:" RESET "   %s", icons[UPTIME], LEFT_PAD, uptime());
 			break;
 		case RAM:
-			sprintf(result, " %s%sram:      %s", icons[RAM], LEFT_PAD, ram());
+			sprintf(result, " %s%s" FETCH_COLOR "ram:" RESET "      %s", icons[RAM], LEFT_PAD, ram());
 			break;
 		case KERNEL:
-			sprintf(result, " %s%skernel:   %s", icons[KERNEL], LEFT_PAD, kernel());
+			sprintf(result, " %s%s" FETCH_COLOR "kernel:" RESET "   %s", icons[KERNEL], LEFT_PAD, kernel());
 			break;
 		case DE:
-			sprintf(result, " %s%sde:       %s", icons[DE], LEFT_PAD, wmde());
+			sprintf(result, " %s%s" FETCH_COLOR "de:" RESET "       %s", icons[DE], LEFT_PAD, wmde());
 			break;
 		default:
 			struct SCRIPT script = external(module);
