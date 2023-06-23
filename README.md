@@ -1,8 +1,6 @@
 # 🚀 CFF - C Fast Fetch
 A fetch that aims to run as fast as possible. Developed for fun (and for GNU/Linux systems).
 
-(_The following example shows the fetch running with the respective icons set in `cfetch.h`_)
-
 ![](https://raw.githubusercontent.com/egujito/cff/master/cff.png)
 
 _Blazingly fast  🏎️💨_
