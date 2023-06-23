@@ -1,3 +1,4 @@
+
 # 🚀 CFF - C Fast Fetch
 A fetch that aims to run as fast as possible. Developed for fun (and for GNU/Linux systems).
 
@@ -5,22 +6,35 @@ A fetch that aims to run as fast as possible. Developed for fun (and for GNU/Lin
 
 _Blazingly fast  🏎️💨_
 
-### Building:
+#### Building:
 
-```
+```bash
 $ make
 ```
 
-### Cleaning:
+#### Cleaning:
 
-```
+```bash
 $ make clean
 ```
 
-### Running:
+#### Running (locally):
 
-```
+```bash
 $ ./cff
+```
+
+#### Installing/Uninstalling:
+
+```bash
+$ sudo make install
+
+$ sudo make uninstall
+```
+#### Running:
+
+```bash
+$ cff
 ```
 
 # `config.h`
@@ -90,4 +104,3 @@ PALETTE       | Prints the color palette. Should be at the end of `fetch_order[]
 - [x] external scripting
 - [x]  Add Fetch ASCII ART
 - [x] Color support
-
