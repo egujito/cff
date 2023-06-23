@@ -19,7 +19,7 @@
 #define RAM 4
 #define KERNEL 5
 #define DE 6
-#define PALLETE 7
+#define PALETTE 7
 #define EXTERNAL 8
 
 
