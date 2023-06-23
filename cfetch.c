@@ -137,6 +137,23 @@ char* cmd(const char* path) {
 
 }
 
+char* pallete() {
+
+	char* result = malloc(sizeof(char) * STD_STR_SIZE);
+	
+	sprintf(result,
+		RED     "● " RESET
+		YELLOW  "● " RESET
+		GREEN   "● " RESET
+		CYAN    "● " RESET
+		BLUE    "● " RESET
+		MAGENTA "●"
+	);
+
+	return result;
+
+}
+
 char* print_module(const int module) {
 
 	char* result = malloc(sizeof(char) * STD_STR_SIZE);
@@ -163,6 +180,9 @@ char* print_module(const int module) {
 		case DE:
 			sprintf(result, " %s%s" FETCH_COLOR "de:"     RESET "       %s", icons[DE], LEFT_PAD, wmde());
 			break;
+		case PALLETE:
+			sprintf(result, " %s%s", LEFT_PAD, pallete());
+			break;
 		default:
 			struct SCRIPT script = external(module);
 			char* buf = cmd(script.path);	
@@ -171,21 +191,6 @@ char* print_module(const int module) {
 	}
 
 	return result;
-}
-
-void pallete() {
-	
-	for (int i = 0; i < LOGO_COLUMNS + 2; ++i) {
-		printf(" ");
-	}
-
-	printf(RED    "●  "     RESET);
-	printf(YELLOW "●  "     RESET);
-	printf(GREEN  "●  "     RESET);
-	printf(CYAN   "●  "     RESET);
-	printf(BLUE   "●  "     RESET);
-	printf(MAGENTA"●\n"     RESET);
-
 }
 
 void fetch() {

@@ -19,7 +19,8 @@
 #define RAM 4
 #define KERNEL 5
 #define DE 6
-#define EXTERNAL 7
+#define PALLETE 7
+#define EXTERNAL 8
 
 
 struct SCRIPT {
