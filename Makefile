@@ -1,6 +1,9 @@
 FLAGS := -std=c11 -Wall -Wextra
 
-all: cfetch.o build
+all: config.h cfetch.o build
+
+config.h: config.def.h
+	cp config.def.h config.h
 
 cfetch.o: cfetch.c cfetch.h logo.h config.h
 	cc -c cfetch.c -o cfetch.o
