@@ -181,7 +181,7 @@ char* print_module(const int module) {
 			sprintf(result, " %s%s" FETCH_COLOR "de:"     RESET "       %s", icons[DE], LEFT_PAD, wmde());
 			break;
 		case PALETTE:
-			sprintf(result, "%s", palette());
+			sprintf(result, " %s%s", LEFT_PAD, palette());
 			break;
 		default:
 			struct SCRIPT script = external(module);
@@ -209,7 +209,7 @@ void fetch() {
 
 	if (printspaces) {
 		for(int i = LOGO_LINES; i < module_count; i++) {
-			for(int j = 0; j < LOGO_COLUMNS + 1; j++)
+			for(int j = 0; j < LOGO_COLUMNS; j++)
 				printf(" ");
 
 			printf("%s\n", print_module(fetch_order[i]));
