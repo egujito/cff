@@ -2,17 +2,17 @@ FLAGS := -std=c11 -Wall -Wextra
 
 all: config.h cfetch.o build
 
-config.h: config.def.h
+config.h: ./config.def.h
 	cp config.def.h config.h
 
-cfetch.o: cfetch.c cfetch.h logo.h config.h
-	cc -c cfetch.c -o cfetch.o
+cfetch.o: ./src/cfetch.c ./src/cfetch.h ./src/logo.h config.h
+	cc -I./ -Isrc -c src/cfetch.c -o obj/cfetch.o
 
-build: cfetch.o
-	cc cfetch.o -o cff ${FALGS}
+build: obj/cfetch.o
+	cc -Iinclude obj/cfetch.o -o cff ${FALGS}
 
-clean: cfetch.o
-	rm cff cfetch.o
+clean: obj/cfetch.o
+	rm cff obj/cfetch.o
 
 install:
 	cp cff /bin
