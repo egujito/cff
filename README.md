@@ -1,4 +1,3 @@
-
 # 🚀 CFF - C Fast Fetch
 A fetch that aims to run as fast as possible. Developed for fun (and for GNU/Linux systems).
 
@@ -104,3 +103,29 @@ PALETTE       | Prints the color palette. Should be at the end of `fetch_order[]
 - [x] external scripting
 - [x]  Add Fetch ASCII ART
 - [x] Color support
+
+### My Personal `config.h`:
+Make sure you use a patched font for the icons.
+```c
+#ifndef CONFIG_H
+#define CONFIG_H
+
+#include "cfetch.h"
+
+#define LEFT_PAD " " // when setting icons in <static const char* icons[]> make sure you set this to " ";
+                    // if you do not use icons the fetch modules text will be docked to the left side of the icon
+
+#define FETCH_COLOR  BLUE
+#define LOGO_COLOR   CYAN
+
+static const char* icons[] = { "", "󰒋", "", "", "󰍛", "", "" };
+
+/*   0  ,  1  ,  2 ,    3  ,  4 ,   5   , 6 ,    7   ,    8 + index of script in scripts[]         */
+/*  USER, HOST, CWD, UPTIME, RAM, KERNEL, DE, PALLETE, EXTERNAL    + i                             */
+
+static const int fetch_order[] = { USER, HOST, CWD, UPTIME, RAM, KERNEL, DE, PALETTE }; // customize order
+
+static struct SCRIPT scripts[] = {};
+
+#endif
+```
