@@ -123,7 +123,7 @@ static const char* icons[] = { "", "󰒋", "", "", "󰍛", "", ""
 /*   0  ,  1  ,  2 ,    3  ,  4 ,   5   , 6 ,    7   ,    8 + index of script in scripts[]         */
 /*  USER, HOST, CWD, UPTIME, RAM, KERNEL, DE, PALLETE, EXTERNAL    + i                             */
 
-static const int fetch_order[] = { USER, HOST, CWD, UPTIME, RAM, KERNEL, DE, PALETTE }; // customize order
+static const int fetch_order[] = { USER, HOST, UPTIME, RAM, KERNEL, DE, PALETTE }; // customize order
 
 static struct SCRIPT scripts[] = {};
 
