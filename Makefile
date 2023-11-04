@@ -1,9 +1,18 @@
 FLAGS := -std=c11 -Wall -Wextra
 
-all: obj config.h obj/cfetch.o obj/api.o obj/drw.o build
+all: directories config.h obj/cfetch.o obj/api.o obj/drw.o build
 
-obj:
+directories:
 	mkdir -p obj
+
+clean:
+	rm -r obj
+
+install:
+	cp cff /bin
+
+uninstall:
+	rm /bin/cff
 
 config.h: ./config.def.h
 	cp config.def.h config.h
@@ -20,11 +29,4 @@ obj/api.o: ./src/api.c ./src/api.h config.h
 build: obj/cfetch.o obj/drw.o obj/api.o
 	cc obj/cfetch.o obj/drw.o obj/api.o -o cff ${FALGS}
 
-clean: obj/cfetch.o obj/drw.o obj/api.o
-	rm cff obj/cfetch.o obj/drw.o obj/api.o
-
-install:
-	cp cff /bin
-
-uninstall:
-	rm /bin/cff
+.PHONY: all directories clean install uninstall
