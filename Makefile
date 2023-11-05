@@ -6,13 +6,13 @@ directories:
 	mkdir -p obj
 
 clean:
-	rm -r obj
+	rm -rf obj
 
 install:
 	cp cff /bin
 
 uninstall:
-	rm /bin/cff
+	rm -f /bin/cff
 
 config.h: ./config.def.h
 	cp config.def.h config.h
